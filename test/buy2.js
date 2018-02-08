@@ -8,253 +8,93 @@ const toWei = utils.toWei
 const tokens = utils.tokens
 
 contract('Buy TorusCoin 2', function (accounts) {
-  console.log(accounts)
-  let founder = accounts[1]
+    console.log(accounts)
+    let founder = accounts[1]
 
-  //Fetch deployed contracts
-  before('fetch deployed instances', function () {
-  })
+    //Fetch deployed contracts
+    before('fetch deployed instances', function () {
+    })
 
-  it('get token case 1', async function () {
-    let now = new Date()
-    let dateTime = Math.floor((now.setHours(now.getHours() - 1)) / 1000)
-    let coin = null
-    let owner = accounts[0]
+    it("buy before ico", async function () {
+        let now = new Date();
+        let dateTime = Math.floor(Date.now() / 1000) + 1
+        let coin = null;
+        let owner = accounts[0];
+        let sendTo = accounts[1];
 
-    let instance = await TorusCoin.new(dateTime, founder)
+        logger.log(owner);
+        let instance = await TorusCoin.new(dateTime, founder);
 
-    {
-      let result = await instance.sendTransaction({value: toWei(1)})
-      logger.log(result)
-      assert.equal(result.logs[0].args.tokens, tokens(700000))
-    }
-    {
-      let result = await instance.balanceOf(owner)
-      logger.log(result)
-      assert.equal(result, tokens(700000))
-    }
-  })
-  it('get token case 2', async function () {
-    let now = new Date()
-    let dateTime = Math.floor((now.setHours(now.getHours() - 119)) / 1000)
-    let coin = null
-    let owner = accounts[0]
+        try {
+            let result = await instance.buy(sendTo, {value: toWei(1)});
+            logger.log(result);
+            assert.isTrue(false, 'at here must raise an exception')
+        } catch (e) {
+            logger.log(e);
+            assert.instanceOf(e, Error);
+            assert.equal(e.message, 'VM Exception while processing transaction: invalid opcode')
 
-    let instance = await TorusCoin.new(dateTime, founder)
+        }
+    });
 
-    {
-      let result = await instance.sendTransaction({value: toWei(1)})
-      logger.log(result)
-      assert.equal(result.logs[0].args.tokens, tokens(700000))
-    }
-    {
-      let result = await instance.balanceOf(owner)
-      logger.log(result)
-      assert.equal(result, tokens(700000))
-    }
+    it('buy token on first stop stage', async function () {
+        let now = new Date()
+        let dateTime = Math.floor(Date.now() / 1000) - (4)*24*60*60 -1
+        let coin = null
+        let owner = accounts[0]
+        let sendTo = accounts[1];
 
-  })
-  it('get token case 3', async function () {
-    let now = new Date()
-    let dateTime = Math.floor((now.setHours(now.getHours() - 121)) / 1000)
-    let coin = null
-    let owner = accounts[0]
+        let instance = await TorusCoin.new(dateTime, founder)
 
-    let instance = await TorusCoin.new(dateTime, founder)
+        try {
+            let result = await instance.buy(sendTo, {value: toWei(1)});
+            logger.log(result);
+            assert.isTrue(false, 'at here must raise an exception')
+        } catch (e) {
+            logger.log(e);
+            assert.instanceOf(e, Error);
+            assert.equal(e.message, 'VM Exception while processing transaction: invalid opcode')
+        }
+    })
 
-    {
-      let result = await instance.sendTransaction({value: toWei(1)})
-      logger.log(result)
-      assert.equal(result.logs[0].args.tokens, tokens(600000))
-    }
-    {
-      let result = await instance.balanceOf(owner)
-      logger.log(result)
-      assert.equal(result, tokens(600000))
-    }
+    it('buy token on second stop stage', async function () {
+        let now = new Date()
+        let dateTime = Math.floor(Date.now() / 1000) - (4+3+7)*24*60*60 -1
+        let coin = null
+        let owner = accounts[0]
+        let sendTo = accounts[1];
 
-  })
-  it('get token case 4', async function () {
-    let now = new Date()
-    let dateTime = Math.floor((now.setHours(now.getHours() - 359)) / 1000)
-    let coin = null
-    let owner = accounts[0]
+        let instance = await TorusCoin.new(dateTime, founder)
 
-    let instance = await TorusCoin.new(dateTime, founder)
+        try {
+            let result = await instance.buy(sendTo, {value: toWei(1)});
+            logger.log(result);
+            assert.isTrue(false, 'at here must raise an exception')
+        } catch (e) {
+            logger.log(e);
+            assert.instanceOf(e, Error);
+            assert.equal(e.message, 'VM Exception while processing transaction: invalid opcode')
+        }
+    })
 
-    {
-      let result = await instance.sendTransaction({value: toWei(1)})
-      logger.log(result)
-      assert.equal(result.logs[0].args.tokens, tokens(600000))
-    }
-    {
-      let result = await instance.balanceOf(owner)
-      logger.log(result)
-      assert.equal(result, tokens(600000))
-    }
+    it('buy token after ico finished', async function () {
+        let now = new Date()
+        let dateTime = Math.floor(Date.now() / 1000) - (4+3+7+4+13)*24*60*60 -1
+        let coin = null
+        let owner = accounts[0]
+        let sendTo = accounts[1];
 
-  })
-  it('get token case 5', async function () {
-    let now = new Date()
-    let dateTime = Math.floor((now.setHours(now.getHours() - 361)) / 1000)
-    let coin = null
-    let owner = accounts[0]
+        let instance = await TorusCoin.new(dateTime, founder)
 
-    let instance = await TorusCoin.new(dateTime, founder)
+        try {
+            let result = await instance.buy(sendTo, {value: toWei(1)});
+            logger.log(result);
+            assert.isTrue(false, 'at here must raise an exception')
+        } catch (e) {
+            logger.log(e);
+            assert.instanceOf(e, Error);
+            assert.equal(e.message, 'VM Exception while processing transaction: invalid opcode')
+        }
+    })
 
-    {
-      let result = await instance.sendTransaction({value: toWei(1)})
-      logger.log(result)
-      assert.equal(result.logs[0].args.tokens, tokens(500000))
-    }
-    {
-      let result = await instance.balanceOf(owner)
-      logger.log(result)
-      assert.equal(result, tokens(500000))
-    }
-  })
-  it('get token case 6', async function () {
-    let now = new Date()
-    let dateTime = Math.floor((now.setHours(now.getHours() - 2400 + 1)) / 1000)
-    let coin = null
-    let owner = accounts[0]
-
-    let instance = await TorusCoin.new(dateTime, founder)
-
-    {
-      let result = await instance.sendTransaction({value: toWei(1)})
-      logger.log(result)
-      assert.equal(result.logs[0].args.tokens, tokens(500000))
-    }
-    {
-      let result = await instance.balanceOf(owner)
-      logger.log(result)
-      assert.equal(result, tokens(500000))
-    }
-  })
-  it('get token case 7', async function () {
-    let now = new Date()
-    let dateTime = Math.floor((now.setHours(now.getHours() - 2401)) / 1000)
-    let coin = null
-    let owner = accounts[0]
-    let sendTo = accounts[1]
-
-    let instance = await TorusCoin.new(dateTime, founder)
-
-    try {
-      let result = await instance.buyRecipient(sendTo, {value: toWei(10)})
-      logger.log(result)
-    } catch (e) {
-      logger.log(e)
-      assert.instanceOf(e, Error)
-
-    }
-  })
-  it('get token amount case 1', async function () {
-    let dateTime = Math.floor(Date.now() / 1000)
-    let coin = null
-    let owner = accounts[0]
-
-    let instance = await TorusCoin.new(dateTime, founder)
-
-    {
-      let result = await instance.sendTransaction({value: toWei(0)})
-      logger.log(result)
-      assert.equal(result.logs[0].args.tokens, tokens(0))
-    }
-    {
-      let result = await instance.balanceOf(owner)
-      logger.log(result)
-      assert.equal(result, tokens(0))
-    }
-  })
-
-  it('get token amount case 2', async function () {
-    let dateTime = Math.floor(Date.now() / 1000) - (120 + 240) * 60 * 60 - 1
-    let coin = null
-    let owner = accounts[0]
-
-    let instance = await TorusCoin.new(dateTime, founder)
-
-    {
-      let result = await instance.sendTransaction({value: toWei(20 * 10 ** 8 / 10000)})
-      logger.log(result)
-      assert.equal(result.logs[0].args.tokens, tokens(20 * 10 ** 8))
-    }
-    {
-      let result = await instance.balanceOf(owner)
-      logger.log(result)
-      assert.equal(result, tokens(20 * 10 ** 8))
-    }
-
-  })
-
-  it('get token amount case 3', async function () {
-    let dateTime = Math.floor(Date.now() / 1000)
-    let coin = null
-    let sendTo = accounts[1]
-
-    let instance = await TorusCoin.new(dateTime, founder)
-
-    try {
-      let result = await instance.buyRecipient(sendTo, {value: toWei((20 * 10 ** 8 + 1) / 15000)})
-      logger.log(result)
-    } catch (e) {
-      logger.log(e)
-      assert.instanceOf(e, Error)
-
-    }
-
-  })
-  it('get token amount case 4', async function () {
-    let dateTime = Math.floor(Date.now() / 1000) - (120 + 240) * 60 * 60 - 1
-    let coin = null
-
-    let instance = await TorusCoin.new(dateTime, founder)
-
-    {
-      let result = await instance.sendTransaction({value: toWei((20 * 10 ** 8 - 10000) / 10000)})
-      logger.log(result)
-      assert.equal(result.logs[0].args.tokens, tokens(20 * 10 ** 8 - 10000))
-    }
-    {
-      let result = await instance.salesVolume.call()
-      logger.log(result)
-      assert.equal(result.toString(10), toWei((20 * 10 ** 8 - 10000) / 10000))
-    }
-
-    {
-      let result = await instance.saleTokenSupply.call()
-      logger.log(result)
-      assert.equal(result.toString(10), tokens(20 * 10 ** 8 - 10000))
-    }
-    {
-      let result = await instance.sendTransaction({value: toWei(1)})
-      logger.log(result)
-      assert.equal(result.logs[0].args.tokens, tokens(10000))
-    }
-    {
-      let result = await instance.saleTokenSupply.call()
-      logger.log(result)
-      assert.equal(result.toString(10), tokens(20 * 10 ** 8))
-    }
-
-    try {
-      {
-        let result = await instance.sendTransaction({value: toWei(1)})
-        logger.info(result)
-        assert.equal(result.tokens, tokens(15000))
-      }
-      // {
-      //   let result = await instance.saleTokenSupply.call();
-      //   logger.log(result);
-      //   assert.equal(result.toString(10), tokens(20 * 10 ** 8));
-      // }
-    } catch (e) {
-      logger.log(e)
-      assert.instanceOf(e, Error)
-
-    }
-
-  })
 })

@@ -3,9 +3,7 @@ const path = require('path')
 module.exports = {
   devtool: '#source-map',
   entry: {
-    main: './app/src/main.js',
-    admin: './app/src/admin.js',
-    account: './app/src/account.js',
+    admin: './app/src/admin.js'
   },
   output: {
     path: path.resolve(__dirname, './build/js'),

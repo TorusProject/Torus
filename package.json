@@ -11,11 +11,10 @@
     "type": "git",
     "url": "https://github.com/moldcoin/TRC.git"
   },
-  "dependencies": {
-    "bignumber.js": "^5.0.0",
-    "vue-localstorage": "^0.5.0"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "bignumber.js": "^5.0.0",
+    "vue-localstorage": "^0.5.0",
     "axios": "^0.16.2",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",

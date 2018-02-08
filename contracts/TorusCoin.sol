@@ -1,124 +1,219 @@
-pragma solidity ^0.4.11;
+pragma solidity ^0.4.18;
 
-contract SafeMath {
-  //internals
+/**
+ * @title SafeMath
+ * @dev Math operations with safety checks that throw on error
+ */
+library SafeMath {
 
-  function safeMul(uint a, uint b) internal pure returns (uint) {
-    uint c = a * b;
-    assert(a == 0 || c / a == b);
+  /**
+  * @dev Multiplies two numbers, throws on overflow.
+  */
+  function mul(uint256 a, uint256 b) internal pure returns (uint256) {
+    if (a == 0) {
+      return 0;
+    }
+    uint256 c = a * b;
+    assert(c / a == b);
     return c;
   }
 
-  function safeSub(uint a, uint b) internal pure returns (uint) {
+  /**
+  * @dev Integer division of two numbers, truncating the quotient.
+  */
+  function div(uint256 a, uint256 b) internal pure returns (uint256) {
+    // assert(b > 0); // Solidity automatically throws when dividing by 0
+    uint256 c = a / b;
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
+    return c;
+  }
+
+  /**
+  * @dev Substracts two numbers, throws on overflow (i.e. if subtrahend is greater than minuend).
+  */
+  function sub(uint256 a, uint256 b) internal pure returns (uint256) {
     assert(b <= a);
     return a - b;
   }
 
-  function safeAdd(uint a, uint b) internal pure returns (uint) {
-    uint c = a + b;
-    assert(c>=a && c>=b);
+  /**
+  * @dev Adds two numbers, throws on overflow.
+  */
+  function add(uint256 a, uint256 b) internal pure returns (uint256) {
+    uint256 c = a + b;
+    assert(c >= a);
     return c;
   }
+}
 
-  function safeDiv(uint a, uint b) internal pure returns (uint) {
-      assert(b > 0);
-      uint c = a / b;
-      assert(a == b * c + a % b);
-      return c;
+
+
+/**
+ * @title ERC20Basic
+ * @dev Simpler version of ERC20 interface
+ * @dev see https://github.com/ethereum/EIPs/issues/179
+ */
+contract ERC20Basic {
+  function totalSupply() public view returns (uint256);
+  function balanceOf(address who) public view returns (uint256);
+  function transfer(address to, uint256 value) public returns (bool);
+  event Transfer(address indexed from, address indexed to, uint256 value);
+}
+
+
+/**
+ * @title ERC20 interface
+ * @dev see https://github.com/ethereum/EIPs/issues/20
+ */
+contract ERC20 is ERC20Basic {
+  function allowance(address owner, address spender) public view returns (uint256);
+  function transferFrom(address from, address to, uint256 value) public returns (bool);
+  function approve(address spender, uint256 value) public returns (bool);
+  event Approval(address indexed owner, address indexed spender, uint256 value);
+}
+
+
+/**
+ * @title Basic token
+ * @dev Basic version of StandardToken, with no allowances.
+ */
+contract BasicToken is ERC20Basic {
+  using SafeMath for uint256;
+
+  mapping(address => uint256) balances;
+
+  uint256 totalSupply_;
+
+  /**
+  * @dev total number of tokens in existence
+  */
+  function totalSupply() public view returns (uint256) {
+    return totalSupply_;
   }
+
+  /**
+  * @dev transfer token for a specified address
+  * @param _to The address to transfer to.
+  * @param _value The amount to be transferred.
+  */
+  function transfer(address _to, uint256 _value) public returns (bool) {
+    require(_to != address(0));
+    require(_value <= balances[msg.sender]);
+
+    // SafeMath.sub will throw if there is not enough balance.
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    Transfer(msg.sender, _to, _value);
+    return true;
+  }
+
+  /**
+  * @dev Gets the balance of the specified address.
+  * @param _owner The address to query the the balance of.
+  * @return An uint256 representing the amount owned by the passed address.
+  */
+  function balanceOf(address _owner) public view returns (uint256 balance) {
+    return balances[_owner];
+  }
+
 }
 
-// ERC 20 Token
-// https://github.com/ethereum/EIPs/issues/20
 
-contract Token {
-    /* This is a slight change to the ERC20 base standard.
-    function totalSupply() constant returns (uint256 supply);
-    is replaced with:
-    uint256 public totalSupply;
-    This automatically creates a getter function for the totalSupply.
-    This is moved to the base contract since public getter functions are not
-    currently recognised as an implementation of the matching abstract
-    function by the compiler.
-    */
-    /// total amount of tokens
-    uint256 public totalSupply;
 
-    /// @param _owner The address from which the balance will be retrieved
-    /// @return The balance
-    function balanceOf(address _owner) public constant returns (uint256 balance);
 
-    /// @notice send `_value` token to `_to` from `msg.sender`
-    /// @param _to The address of the recipient
-    /// @param _value The amount of token to be transferred
-    /// @return Whether the transfer was successful or not
-    function transfer(address _to, uint256 _value) public returns (bool success);
+/**
+ * @title Standard ERC20 token
+ *
+ * @dev Implementation of the basic standard token.
+ * @dev https://github.com/ethereum/EIPs/issues/20
+ * @dev Based on code by FirstBlood: https://github.com/Firstbloodio/token/blob/master/smart_contract/FirstBloodToken.sol
+ */
+contract StandardToken is ERC20, BasicToken {
 
-    /// @notice send `_value` token to `_to` from `_from` on the condition it is approved by `_from`
-    /// @param _from The address of the sender
-    /// @param _to The address of the recipient
-    /// @param _value The amount of token to be transferred
-    /// @return Whether the transfer was successful or not
-    function transferFrom(address _from, address _to, uint256 _value) public returns (bool success);
+  mapping (address => mapping (address => uint256)) internal allowed;
 
-    /// @notice `msg.sender` approves `_spender` to spend `_value` tokens
-    /// @param _spender The address of the account able to transfer the tokens
-    /// @param _value The amount of tokens to be approved for transfer
-    /// @return Whether the approval was successful or not
-    function approve(address _spender, uint256 _value) public returns (bool success);
 
-    /// @param _owner The address of the account owning tokens
-    /// @param _spender The address of the account able to transfer the tokens
-    /// @return Amount of remaining tokens allowed to spent
-    function allowance(address _owner, address _spender) public constant returns (uint256 remaining);
+  /**
+   * @dev Transfer tokens from one address to another
+   * @param _from address The address which you want to send tokens from
+   * @param _to address The address which you want to transfer to
+   * @param _value uint256 the amount of tokens to be transferred
+   */
+  function transferFrom(address _from, address _to, uint256 _value) public returns (bool) {
+    require(_to != address(0));
+    require(_value <= balances[_from]);
+    require(_value <= allowed[_from][msg.sender]);
 
-    event Transfer(address indexed _from, address indexed _to, uint256 _value);
-    event Approval(address indexed _owner, address indexed _spender, uint256 _value);
-}
+    balances[_from] = balances[_from].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_value);
+    Transfer(_from, _to, _value);
+    return true;
+  }
 
-contract StandardToken is Token {
+  /**
+   * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
+   *
+   * Beware that changing an allowance with this method brings the risk that someone may use both the old
+   * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
+   * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+   * @param _spender The address which will spend the funds.
+   * @param _value The amount of tokens to be spent.
+   */
+  function approve(address _spender, uint256 _value) public returns (bool) {
+    allowed[msg.sender][_spender] = _value;
+    Approval(msg.sender, _spender, _value);
+    return true;
+  }
 
-    function transfer(address _to, uint256 _value) public returns (bool success) {
-        //Default assumes totalSupply can't be over max (2^256 - 1).
-        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
-        //Replace the if with this one instead.
-        //if (balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
-        if (balances[msg.sender] >= _value && _value > 0) {
-            balances[msg.sender] -= _value;
-            balances[_to] += _value;
-            Transfer(msg.sender, _to, _value);
-            return true;
-        } else { return false; }
+  /**
+   * @dev Function to check the amount of tokens that an owner allowed to a spender.
+   * @param _owner address The address which owns the funds.
+   * @param _spender address The address which will spend the funds.
+   * @return A uint256 specifying the amount of tokens still available for the spender.
+   */
+  function allowance(address _owner, address _spender) public view returns (uint256) {
+    return allowed[_owner][_spender];
+  }
+
+  /**
+   * @dev Increase the amount of tokens that an owner allowed to a spender.
+   *
+   * approve should be called when allowed[_spender] == 0. To increment
+   * allowed value is better to use this function to avoid 2 calls (and wait until
+   * the first transaction is mined)
+   * From MonolithDAO Token.sol
+   * @param _spender The address which will spend the funds.
+   * @param _addedValue The amount of tokens to increase the allowance by.
+   */
+  function increaseApproval(address _spender, uint _addedValue) public returns (bool) {
+    allowed[msg.sender][_spender] = allowed[msg.sender][_spender].add(_addedValue);
+    Approval(msg.sender, _spender, allowed[msg.sender][_spender]);
+    return true;
+  }
+
+  /**
+   * @dev Decrease the amount of tokens that an owner allowed to a spender.
+   *
+   * approve should be called when allowed[_spender] == 0. To decrement
+   * allowed value is better to use this function to avoid 2 calls (and wait until
+   * the first transaction is mined)
+   * From MonolithDAO Token.sol
+   * @param _spender The address which will spend the funds.
+   * @param _subtractedValue The amount of tokens to decrease the allowance by.
+   */
+  function decreaseApproval(address _spender, uint _subtractedValue) public returns (bool) {
+    uint oldValue = allowed[msg.sender][_spender];
+    if (_subtractedValue > oldValue) {
+      allowed[msg.sender][_spender] = 0;
+    } else {
+      allowed[msg.sender][_spender] = oldValue.sub(_subtractedValue);
     }
+    Approval(msg.sender, _spender, allowed[msg.sender][_spender]);
+    return true;
+  }
 
-    function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
-        //same as above. Replace this line with the following if you want to protect against wrapping uints.
-        //if (balances[_from] >= _value && allowed[_from][msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
-        if (balances[_from] >= _value && allowed[_from][msg.sender] >= _value && _value > 0) {
-            balances[_to] += _value;
-            balances[_from] -= _value;
-            allowed[_from][msg.sender] -= _value;
-            Transfer(_from, _to, _value);
-            return true;
-        } else { return false; }
-    }
-
-    function balanceOf(address _owner) public constant returns (uint256 balance) {
-        return balances[_owner];
-    }
-
-    function approve(address _spender, uint256 _value) public returns (bool success) {
-        allowed[msg.sender][_spender] = _value;
-        Approval(msg.sender, _spender, _value);
-        return true;
-    }
-
-    function allowance(address _owner, address _spender) public constant returns (uint256 remaining) {
-      return allowed[_owner][_spender];
-    }
-
-    mapping (address => uint256) balances;
-    mapping (address => mapping (address => uint256)) allowed;
 }
 
 
@@ -126,21 +221,22 @@ contract StandardToken is Token {
  * MoldCoin pre-sell contract.
  *
  */
-contract TorusCoin is StandardToken, SafeMath {
+contract TorusCoin is StandardToken {
+    using SafeMath for uint256;
 
     string public name = "Torus";
     string public symbol = "TRC";
-    uint public decimals = 18;
+    uint256 public decimals = 18;
 
-    uint public firstStartDatetime; //first stage
-    uint public firstEndDatetime;
+    uint256 public firstStartDatetime; //first stage
+    uint256 public firstEndDatetime;
 
-    uint public secondStartDatetime; //second stage
-    uint public secondEndDatetime;
+    uint256 public secondStartDatetime; //second stage
+    uint256 public secondEndDatetime;
 
-    uint public thirdStartDatetime; //third stage
-    uint public thirdEndDatetime;
-    uint public lastInflationDatetime;
+    uint256 public thirdStartDatetime; //third stage
+    uint256 public thirdEndDatetime;
+    uint256 public lastInflationDatetime;
 
     // Initial founder address (set in constructor)
     // All deposited ETH will be instantly forwarded to this address.
@@ -149,24 +245,24 @@ contract TorusCoin is StandardToken, SafeMath {
     // administrator address
     address public admin;
 
-    uint public coinAllocation = 630 * 10**8 * 10**decimals; //63000M tokens supply for pre-sell
-    uint public angelAllocation = 70 * 10**8 * 10**decimals; // 700M of token supply allocated angel investor
-    uint public founderAllocation = 300 * 10**8 * 10**decimals; //30000M of token supply allocated for the team allocation
+    uint256 public coinAllocation = 630 * 10**8 * 10**decimals; //63000M tokens supply for pre-sell
+    uint256 public angelAllocation = 70 * 10**8 * 10**decimals; // 700M of token supply allocated angel investor
+    uint256 public founderAllocation = 300 * 10**8 * 10**decimals; //30000M of token supply allocated for the team allocation
 
     bool public founderAllocated = false; //this will change to true when the founder fund is allocated
 
-    uint public saleTokenSupply = 0; //this will keep track of the token supply created during the pre-sell
-    uint public salesVolume = 0; //this will keep track of the Ether raised during the pre-sell
+    uint256 public saleTokenSupply = 0; //this will keep track of the token supply created during the pre-sell
+    uint256 public salesVolume = 0; //this will keep track of the Ether raised during the pre-sell
 
-    uint public angelTokenSupply = 0; //this will keep track of the token angel supply
+    uint256 public angelTokenSupply = 0; //this will keep track of the token angel supply
 
 
     bool public halted = false; //the admin address can set this to true to halt the pre-sell due to emergency
 
-    event Buy(address _sender, address _recipient, uint _eth, uint _tokens);
-    event AllocateFounderTokens(address _sender, uint _tokens);
-    event AllocateAngelTokens(address _sender, address _to, uint _tokens);
-    event AllocateInflatedTokens(address _sender, address _holder, uint _tokens);
+    event Buy(address sender, address recipient, uint256 eth, uint256 tokens);
+    event AllocateFounderTokens(address sender, address founder, uint256 tokens);
+    event AllocateAngelTokens(address sender, address to, uint256 tokens);
+    event AllocateInflatedTokens(address sender, address holder, uint256 tokens);
 
     modifier onlyAdmin {
         require(msg.sender == admin);
@@ -182,7 +278,7 @@ contract TorusCoin is StandardToken, SafeMath {
      *
      * Integer value representing the number of seconds since 1 January 1970 00:00:00 UTC
      */
-    function TorusCoin(uint startDatetimeInSeconds, address founderWallet) public {
+    function TorusCoin(uint256 startDatetimeInSeconds, address founderWallet) public {
 
         admin = msg.sender;
         founder = founderWallet;
@@ -203,10 +299,10 @@ contract TorusCoin is StandardToken, SafeMath {
     /**
      * Price for crowdsale by time
      */
-    function price(uint timeInSeconds) public constant returns(uint) {
-        if (timeInSeconds >= firstStartDatetime && timeInSeconds <= firstEndDatetime) return 700000; //first stage
-        if (timeInSeconds >= secondStartDatetime && timeInSeconds <= secondEndDatetime) return 600000; //second stage
-        if (timeInSeconds >= thirdStartDatetime && timeInSeconds <= thirdEndDatetime) return 500000; //third stage
+    function price(uint256 timeInSeconds) public constant returns(uint256) {
+        if (timeInSeconds >= firstStartDatetime && timeInSeconds <= firstEndDatetime) return 35*10**4; //first stage
+        if (timeInSeconds >= secondStartDatetime && timeInSeconds <= secondEndDatetime) return 30*10**4; //second stage
+        if (timeInSeconds >= thirdStartDatetime && timeInSeconds <= thirdEndDatetime) return 25*10**4; //third stage
         return 0;
     }
 
@@ -226,17 +322,17 @@ contract TorusCoin is StandardToken, SafeMath {
         require(!halted);
         require(msg.value >= 0.01 ether);
 
-        uint tokens = safeMul(msg.value, price(block.timestamp));
+        uint256 tokens = msg.value.mul(price(block.timestamp));
 
         require(tokens > 0);
 
-        require(safeAdd(saleTokenSupply,tokens)<=coinAllocation );
+        require(saleTokenSupply.add(tokens)<=coinAllocation );
 
-        balances[recipient] = safeAdd(balances[recipient], tokens);
+        balances[recipient] = balances[recipient].add(tokens);
 
-        totalSupply = safeAdd(totalSupply, tokens);
-        saleTokenSupply = safeAdd(saleTokenSupply, tokens);
-        salesVolume = safeAdd(salesVolume, msg.value);
+        totalSupply_ = totalSupply_.add(tokens);
+        saleTokenSupply = saleTokenSupply.add(tokens);
+        salesVolume = salesVolume.add(msg.value);
 
         if (!founder.call.value(msg.value)()) revert(); //immediately send Ether to founder address
 
@@ -247,25 +343,26 @@ contract TorusCoin is StandardToken, SafeMath {
      * Set up founder address token balance.
      */
     function allocateFounderTokens() public onlyAdmin {
+        require( now > thirdEndDatetime );
         require(!founderAllocated);
 
-        balances[founder] = safeAdd(balances[founder], founderAllocation);
-        totalSupply = safeAdd(totalSupply, founderAllocation);
+        balances[founder] = balances[founder].add(founderAllocation);
+        totalSupply_ = totalSupply_.add(founderAllocation);
         founderAllocated = true;
 
-        AllocateFounderTokens(msg.sender, founderAllocation);
+        AllocateFounderTokens(msg.sender, founder, founderAllocation);
     }
 
     /**
      * Set up angel address token balance.
      */
-    function allocateAngelTokens(address angel, uint tokens) public onlyAdmin {
+    function allocateAngelTokens(address angel, uint256 tokens) public onlyAdmin {
 
-        require(safeAdd(angelTokenSupply,tokens) <= angelAllocation );
+        require(angelTokenSupply.add(tokens) <= angelAllocation );
 
-        balances[angel] = safeAdd(balances[angel], tokens);
-        angelTokenSupply = safeAdd(angelTokenSupply, tokens);
-        totalSupply = safeAdd(totalSupply, tokens);
+        balances[angel] = balances[angel].add(tokens);
+        angelTokenSupply = angelTokenSupply.add(tokens);
+        totalSupply_ = totalSupply_.add(tokens);
 
         AllocateAngelTokens(msg.sender, angel, tokens);
     }
@@ -298,11 +395,11 @@ contract TorusCoin is StandardToken, SafeMath {
     function inflate() public onlyAdmin {
         require( now >= (lastInflationDatetime + 6 * 4 weeks) );
 
-        uint tokens = safeDiv(safeSub(coinAllocation, saleTokenSupply), 10);
+        uint256 tokens = coinAllocation.sub(saleTokenSupply).div(10);
 
-        balances[founder] = safeAdd(balances[founder], tokens);
-        saleTokenSupply = safeAdd(saleTokenSupply, tokens);
-        totalSupply = safeAdd(totalSupply, tokens);
+        balances[founder] = balances[founder].add(tokens);
+        saleTokenSupply = saleTokenSupply.add(tokens);
+        totalSupply_ = totalSupply_.add(tokens);
 
         AllocateInflatedTokens(msg.sender, founder, tokens);
 

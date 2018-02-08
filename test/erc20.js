@@ -4,7 +4,7 @@ const logger = utils.logger;
 const toWei = utils.toWei;
 const tokens = utils.tokens;
 
-contract('Test Contract Holder', function (accounts) {
+contract('Test ERC20', function (accounts) {
 
     console.log(accounts)
 
@@ -19,7 +19,7 @@ contract('Test Contract Holder', function (accounts) {
     before("fetch deployed instances", function () {
     });
 
-    it("send some token to contract", async function () {
+    it("buy by user1 then transfer user2", async function () {
         let dateTime = Math.floor(Date.now() / 1000);
 
         let instance = await TorusCoin.new(dateTime, founder);
@@ -33,38 +33,26 @@ contract('Test Contract Holder', function (accounts) {
             logger.log(holdCoin)
             assert.equal(parseFloat(holdCoin), tokens(utils.firstStageRate));
         }
-        //console.log(instance)
+        // {
+        //   let holdEth = await web3.eth.getBalance(founder);
+        //   logger.log(holdEth);
+        //   assert.equal(parseFloat(holdEth), toWei(1));
+        // }
         {
             let result = await instance.transfer(user2, tokens(amount), {from: user1});
             logger.log(result);
             assert.equal(result.logs[0].args.value, tokens(amount));
         }
         {
+            let holdCoin = await instance.balanceOf(user1);
+            logger.log(holdCoin)
+            assert.equal(parseFloat(holdCoin), tokens(utils.firstStageRate-amount));
+        }
+        {
             let holdCoin = await instance.balanceOf(user2);
             logger.log(holdCoin)
             assert.equal(parseFloat(holdCoin), tokens(amount));
         }
-        {
-            let holdCoin = await instance.balanceOf(user1);
-            logger.log(holdCoin)
-            assert.equal(parseFloat(holdCoin), tokens(utils.firstStageRate - amount));
-        }
-        {
-            let result = await instance.transfer(user1, tokens(amount), {from: user2});
-            logger.log(result);
-            assert.equal(result.logs[0].args.value, tokens(amount));
-        }
-        {
-            let holdCoin = await instance.balanceOf(user2);
-            logger.log(holdCoin)
-            assert.equal(parseFloat(holdCoin), tokens(0));
-        }
-        {
-            let holdCoin = await instance.balanceOf(user1);
-            logger.log(holdCoin)
-            assert.equal(parseFloat(holdCoin), tokens(utils.firstStageRate));
-        }
-
     });
 
 

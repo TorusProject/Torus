@@ -97,4 +97,24 @@ contract('Buy TorusCoin 2', function (accounts) {
         }
     })
 
+    it('buy token under 0.01eth', async function () {
+        let now = new Date()
+        let dateTime = Math.floor(Date.now() / 1000)
+        let coin = null
+        let owner = accounts[0]
+        let sendTo = accounts[1];
+
+        let instance = await TorusCoin.new(dateTime, founder)
+
+        try {
+            let result = await instance.buy(sendTo, {value: toWei(0.009)});
+            logger.log(result);
+            assert.isTrue(false, 'at here must raise an exception')
+        } catch (e) {
+            logger.log(e);
+            assert.instanceOf(e, Error);
+            assert.equal(e.message, 'VM Exception while processing transaction: invalid opcode')
+        }
+    })
+
 })

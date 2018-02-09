@@ -1,0 +1,1239 @@
+@charset "UTF-8";
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+audio, canvas, video {
+	display: inline-block;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+         -o-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+
+ol, ul {
+	list-style: none;
+}
+input, textarea, keygen, select, button {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+
+}
+
+html{
+    height: 100%;
+}
+body {
+	position:relative;
+	background: #fff;
+	font-family: 'Lucida Grande', 'Lucida Sans Unicode', "游ゴシック", YuGothic, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, 'ＭＳ Ｐゴシック', Helvetica, Arial, Verdana, sans-serif;
+	font-size: 18px;
+	font-size: 14px;
+	color: #444;
+	letter-spacing: 0;
+	text-align: left;
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-size-adjust: 100%;
+	margin: 0;
+	padding: 0;
+	line-height: 1;
+	height: 100%;
+	width: 100%;
+	z-index: 0;
+	overflow-x: hidden;
+}
+h1,h2,h3,h4,h5,h6 {
+	font-weight: normal;
+	margin: 0;
+}
+h1 {
+}
+
+h1 {
+	position: relative;
+	padding: 1em;
+	text-align: center;
+	background-color: #ddd;
+	font-size: 120%;
+	font-weight: bold;
+	overflow-x: hidden;
+}
+h1 span {
+	position: relative;
+}
+h1 span::before,
+h1 span::after {
+	position: absolute;
+	content: "";
+	height: 1.5em;
+	width: 22em;
+	top: 0em;
+	background-color: #fff;
+	background-size: 1.5em 1.5em;
+	background-position: 0px 0px;
+
+    -webkit-animation-duration: 3s;
+    -webkit-animation-timing-function: ease-out;
+    -webkit-animation-delay:0s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-direction:normal;
+    animation-duration: 3s;
+    animation-timing-function: ease-out;
+    animation-delay:0s;
+    animation-iteration-count: 1;
+    animation-direction:normal;
+}
+h1 span::before {
+	left: -23em;
+    -webkit-animation-name: h1squarel;
+    animation-name: h1squarel;
+}
+h1 span::after {
+	right: -23em;
+    -webkit-animation-name: h1squarer;
+    animation-name: h1squarer;
+}
+@-webkit-keyframes h1squarel {
+    from,0% { left: -2.5em;width: 1.5em;-webkit-transform: translate(-225px,0) rotate(0deg);  }
+    70% { left: -2.5em;width: 1.5em;-webkit-transform: translate(0,0) rotate(1800deg);  }
+    99.9%,to{ left: -23em;width: 22em;-webkit-transform: translate(0,0) rotate(1800deg);  }
+}
+@keyframes h1squarel {
+    from,0% { left: -2.5em;width: 1.5em;transform: translate(-225px,0) rotate(0deg);  }
+    70% { left: -2.5em;width: 1.5em;transform: translate(0,0) rotate(1800deg);  }
+    99.9%,to{ left: -23em;width: 22em;transform: translate(0,0) rotate(1800deg);  }
+}
+@-webkit-keyframes h1squarer {
+    from,0% { right: -2.5em;width: 1.5em;-webkit-transform: translate(225px,0) rotate(0deg);  }
+    70% { right: -2.5em;width: 1.5em;-webkit-transform: translate(0,0) rotate(-1800deg);  }
+    99.9%,to{ right: -23em;width: 22em;-webkit-transform: translate(0,0) rotate(-1800deg);  }
+}
+@keyframes h1squarer {
+    from,0% { right: -2.5em;width: 1.5em;transform: translate(225px,0) rotate(0deg);  }
+    70% { right: -2.5em;width: 1.5em;transform: translate(0,0) rotate(-1800deg);  }
+    99.9%,to{ right: -23em;width: 22em;transform: translate(0,0) rotate(-1800deg);  }
+}
+
+
+
+
+
+h2 {
+	position: relative;
+	margin-top: 1.5em;
+	padding: 0.5em 0 0.5em 2em;
+	text-align: center;
+	background-color: #eee;
+	font-size: 111%;
+	font-weight: bold;
+	line-height: 1.4;
+}
+
+h2.active span {
+}
+h2 span {
+	position: relative;
+	display: inline;
+	padding: 0;
+}
+h2 span::before {
+	position: absolute;
+	overflow: visible;
+	content: "";
+	height: 1.5em;
+	width: 1.5em;
+	top: -15%;
+	left: -2em;
+	background-image: url(../images/logo.png); /* 100 100 */
+	background-size: 1.5em 1.5em;
+	background-position: 0px 0px;
+}
+h2.active span::before {
+    -webkit-animation-name: webkith2circle;
+    -webkit-animation-duration: 4s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-delay:0s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction:normal;
+    animation-name: h2circle;
+    animation-duration: 4s;
+    animation-timing-function: linear;
+    animation-delay:0s;
+    animation-iteration-count: infinite;
+    animation-direction:normal;
+}
+@media screen and (min-width : 767px) {
+
+h2 span::before,
+h2.active span::before {
+	top: 0%;
+}
+
+}
+@-webkit-keyframes webkith2circle {
+    from,0% { -webkit-transform: rotate3d(0,1,0,0deg); }
+    50% { -webkit-transform: rotate3d(0,1,0,90deg); }
+    99.9%,to{ -webkit-transform: rotate3d(0,1,0,0deg); }
+}
+@keyframes h2circle {
+    from,0% { transform: rotate3d(0,1,0,0deg); }
+    50% { transform: rotate3d(0,1,0,90deg); }
+    99.9%,to{ transform: rotate3d(0,1,0,0deg); }
+}
+h3 {
+	position: relative;
+	font-size: 115%;
+	font-weight: bold;
+	margin: 0.5em 0 0.5em 0;
+	padding: 5px;
+	font-weight: normal;
+	border-bottom: 1px solid #999;
+}
+h4 {
+	font-size: 14px;
+	letter-spacing: 0.15em;
+	margin: 0 0 1em 0;
+	font-weight: normal;
+	line-height: 20px;
+}
+h5,h6 {
+	font-size: 10.5px;
+	line-height: 12px;
+	letter-spacing: 0.15em;
+	font-weight: normal;
+}
+a {
+	color: #000;
+	text-decoration: underline;
+}
+a:hover {
+	color: #555;
+	text-decoration: none;
+	opacity: 1;
+	outline: none;
+}
+a:focus {outline:none;}
+a:hover,a:active {
+	outline:0;
+}
+
+ul,ol { padding:0; }
+
+ul ul,ul ol,ol ol,ol ul { margin:0; }
+
+li {
+	list-style-position:outside;
+	margin:0;
+	padding:0;
+}
+
+em { font-style:italic; }
+
+img { border: none; display: block; }
+img{
+	width: 100%;
+	height: auto;
+}
+
+.clearfix:after {
+	content: "."; 
+	display: block;
+	height: 0;
+	font-size: 0;
+	clear: both;
+	visibility: hidden;
+}
+* html .clearfix { height: 1%; }
+.clearfix{ display:block; }
+
+
+
+
+/* =Layout
+-----------------------------------------------------------------------------*/
+#wrapper {
+	position: relative;
+	height: auto;
+	width: 100%;
+}
+
+
+@media screen and (min-width : 767px) {
+
+.wrap {
+	width: 800px;
+	margin: 0 auto;
+}
+#main {
+}
+
+}
+
+
+
+
+
+
+/* header
+----------------------------------------------------------------------------------------------*/
+header {
+	position: relative;
+}
+
+.index #logo,
+.index #logoletter {
+	width: 100%;
+	height: auto;
+	padding: 3% 18% 0 18%;
+}
+#logo,
+#logoletter {
+	width: 100%;
+	height: auto;
+	padding: 3% 35% 0 35%;
+}
+#logo img {
+	width: 100%;
+    transition-duration: 0.6s;
+    -webkit-transition-duration: 0.6s;
+}
+#logo img:hover {
+	opacity: 0.6;
+}
+#logoletter img {
+	width: 100%;
+	padding: 10% 10% 10% 10%;
+}
+
+@media screen and (min-width : 767px) {
+
+#logo,
+#logoletter {
+	width: 100%;
+}
+}
+
+#banner {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	z-index: 100;
+    transition-duration: 0.6s;
+    -webkit-transition-duration: 0.6s;
+}
+#banner:hover {
+	opacity: 0.6;
+}
+
+@media screen and (min-width : 430px) {
+
+#banner {
+	width: 430px;
+}
+
+}
+
+
+
+
+/* header_menu
+----------------------------------------------------------------------------------------------*/
+
+#header_menu {
+	position: relative;
+}
+
+#header_menu  {
+	right: 0;
+	bottom: 0;
+
+}
+#header_menu ul {
+	margin-right: 6px;
+}
+#header_menu li {
+	width: 85px;
+	float: left;
+	margin: 0 3px 0 0;
+}
+#header_menu li span {
+	display: none;
+}
+#header_menu li:hover {
+	opacity: 0.6;
+}
+
+
+
+/* #gmenu
+----------------------------------------------------------------------------------------------*/
+
+#gmenu {
+
+}
+
+#gmenu ul {
+	margin-bottom: 1em;
+
+}
+#gmenu li {
+	position: relative;
+	float: left;
+	width: 33.33333%;
+	height: 44px;
+	font-size: 70%;
+	line-height: 1.5;
+	overflow: hidden;
+	border-right: 1px solid #fff;
+	border-bottom: 1px solid #fff;
+}
+
+@media screen and (max-width : 767px) {
+
+#gmenu li:nth-of-type(3n) {
+	border-right: 0px solid #fff;
+
+}
+
+}
+
+#gmenu li a {
+	position: relative;
+	display: table-cell;
+	vertical-align: middle;
+	color: #fff;
+	height: 44px;
+	width: 50em;
+	padding: 0 2px 0 42px;
+	text-align: center;
+	background-color: rgba(32,71,78,0.7);
+	text-decoration: none;
+}
+#gmenu li a::before {
+	position: absolute;
+	content: "";
+	width: 40px;
+	height: 40px;
+	top: 2px;
+	left: 2px;
+	background-size: 40px 40px;
+	background-position: 0px 0px;
+}
+#gmenu li.about a::before {
+	background-image: url(../images/gmenubtn01about.png); /* 600 600 */
+}
+#gmenu li.get a::before {
+	background-image: url(../images/gmenubtn02get.png); /* 600 600 */
+}
+#gmenu li.qa a::before {
+	background-image: url(../images/gmenubtn03qa.png); /* 600 600 */
+}
+#gmenu li.game a::before {
+	background-image: url(../images/gmenubtn04game.png); /* 600 600 */
+}
+#gmenu li.company a::before {
+	background-image: url(../images/gmenubtn05company.png); /* 600 600 */
+}
+#gmenu li.inquiry a::before {
+	background-image: url(../images/gmenubtn06inquiry.png); /* 600 600 */
+}
+
+#gmenu li:hover {
+	opacity: 0.6;
+	box-shadow: 0 0 0 3px rgba(32,71,78,1) inset;
+}
+
+@media screen and (min-width : 767px) {
+
+#gmenu li {
+	width: 16.66666%;
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+/* footer
+----------------------------------------------------------------------------------------------*/
+#footer {
+	position: relative;
+	background: #eee;
+	text-align: center;
+	font-size: 80%;
+	line-height: 1.6;
+	margin-top: 60px;
+	padding: 2em 0;
+	z-index: 10;
+}
+
+/* 下固定バナーがある場合、これを追加する
+----------------------------------------------------------------------------------------------*/
+#footer {
+	padding-bottom: 120px;
+}
+@media screen and (min-width : 767px) {
+}
+
+#footerlogo {
+	float: left;
+	width: 45%;
+    transition-duration: 0.6s;
+    -webkit-transition-duration: 0.6s;
+}
+#footerlogo img {
+	padding: 0 5% 0 10%;
+}
+#footerlogo:hover {
+	opacity: 0.6;
+}
+#footermenu {
+	float: left;
+	width: 55%;
+}
+#footermenu li a {
+	display: block;
+	padding: 0.4em 0;
+    transition-duration: 0.6s;
+    -webkit-transition-duration: 0.6s;
+}
+#footermenu li a:hover {
+	background-color: rgba(32,71,78,0.2);
+}
+@media screen and (min-width : 767px) {
+
+#footerlogo {
+	width: 25%;
+	margin-left: 20%;
+}
+#footermenu li a {
+	margin: 0 5em;
+}
+
+
+}
+
+#footerCopyright {
+	padding-top: 1em;
+}
+
+
+
+
+
+
+
+
+
+/* indexページ
+----------------------------------------------------------------------------------------------*/
+
+h1#toph1 {
+	background-color: #fff;
+	color: #888;
+	line-height: 1.7;
+	padding: 1px 0 0 0;
+	overflow: hidden;
+}
+#intro dl {
+	position: relative;
+}
+#intro .introtext {
+	line-height: 1.7;
+	padding: 1em;
+	width: 200px;
+	font-size: 85%;
+	margin: 0 40% 0 auto;
+}
+#intro .introimg {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 55%;
+	height: auto;
+
+}
+#intro .introimg img {
+	width: 100%;
+	max-width: 250px;
+}
+
+#top_news_list dt {
+	float: left;
+}
+#top_news_list dd {
+	margin-left : 7em;
+}
+
+
+#top_movie {
+	margin: 3em 0;
+}
+#top_movie img {
+	width: 100%;
+	height: auto;
+}
+#top_value {
+	text-align: center;
+	margin-top: 1em;
+}
+.mold1 {
+	font-size: 150%;
+	padding-left: .5em;
+	font-family: "ヒラギノ明朝 Pro W3","HG明朝E","ＭＳ Ｐ明朝","ＭＳ 明朝",serif;
+}
+.value {
+	font-size: 170%;
+	padding-left: .5em;
+	font-family: "ヒラギノ明朝 Pro W3","HG明朝E","ＭＳ Ｐ明朝","ＭＳ 明朝",serif;
+}
+.jpn {
+	font-size: 150%;
+	padding: 0 .5em;
+	font-family: "ヒラギノ明朝 Pro W3","HG明朝E","ＭＳ Ｐ明朝","ＭＳ 明朝",serif;
+}
+#top_chart {
+	margin: 3em 0;
+}
+#top_chart img {
+	width: 100%;
+	height: auto;
+}
+
+@media screen and (min-width : 767px) {
+
+#intro .introtext {
+	margin: 160px 65% 20px auto;
+}
+#intro .introimg img {
+	max-width: 400px;
+}
+
+}
+
+#topcentermenu {
+	width: 80%;
+	margin: 3em auto;
+}
+#topcentermenu li {
+	float: left;
+	width: 49%;
+	height: auto;
+	margin: 0.5%;
+    transition-duration: 0.6s;
+    -webkit-transition-duration: 0.6s;
+}
+#topcentermenu li:hover {
+	opacity: 0.5;
+}
+
+@media screen and (min-width : 620px) {
+
+#topcentermenu {
+	width: 600px;
+}
+#topcentermenu li {
+	float: left;
+	width: 32%;
+}
+
+}
+#top_movie {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 0px;
+    height: 0;
+    overflow: hidden;
+}
+ 
+#top_movie iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* 共通
+----------------------------------------------------------------------------------------------*/
+
+.infotext {
+	padding: 0.5em 1em;
+	line-height: 1.7;
+}
+
+.infotexth {
+	padding: 0.2em 0;
+	font-size: 110%;
+	font-weight: bold;
+}
+@media screen and (min-width : 550px) {
+
+.spbr {
+	display: none;
+
+}
+
+}
+
+#sns_block {
+margin-top: 3em;
+}
+#sns_block li {
+float: right;
+margin: 0 1em;
+}
+
+
+
+
+
+/* about
+----------------------------------------------------------------------------------------------*/
+
+#currency_info_table {
+}
+#currency_info_table {
+	width: 100%;
+	margin: 1em 0%;
+    border-collapse: collapse;
+}
+#currency_info_table th {
+	background: #555;
+	font-size: 125%;
+	color: #fff;
+	padding: 0.5em 0;
+	text-align: center;
+	font-weight: bold;
+	border: 1px solid #888;
+}
+#currency_info_table td {
+	padding: 0.4em;
+	text-align: center;
+	border: 1px solid #888;
+}
+
+#currency_info_table tr:nth-child(2n) {
+	background: #fff;
+}
+#currency_info_table tr:nth-child(2n+1) {
+	background: #ddd;
+}
+
+.currencyPrices {
+	width: 20%;
+}
+.currencyTotal {
+	width: 45%;
+}
+.currencySheets {
+	width: 35%;
+}
+.currencyPricesNow td {
+    background: -moz-linear-gradient(top, rgba(255,230,230,50), rgba(255,210,210,50)); /* mozilla */
+    background: linear-gradient(rgba(255,230,230,50), rgba(255,210,210,50)); /* ie */
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(255,230,230,50)), to(rgba(255,210,210,50))); /* Webkit */
+
+}
+
+#exponential,
+#triangle001,
+#triangle002,
+#triangle003 {
+	margin: 2em 0 0 0;
+}
+@media screen and (min-width : 767px) {
+
+#exponential,
+#triangle001,
+#triangle002,
+#triangle003 {
+	float: left;
+	width: 49%;
+	
+	margin: 2em 0.5% 0 0.5%;
+	height: 360px;
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+/* company
+----------------------------------------------------------------------------------------------*/
+
+
+
+#company_overview_table {
+
+}
+
+#company_overview_table {
+	width: 98%;
+	margin: 1em 1%;
+    border-collapse: collapse;
+}
+#company_overview_table th {
+	background: #eee;
+	font-size: 115%;
+	text-align: center;
+	width: 6em;
+	padding: 0.6em 0 0.4em 0;
+	border: 1px solid #888;
+}
+#company_overview_table td {
+	background: #fff;
+	padding: 0.8em;
+	border: 1px solid #888;
+	line-height: 1.7;
+}
+#company_overview_table ul {
+	padding-left: 2em;
+}
+#company_overview_table li {
+	list-style-type: decimal;
+	padding: 0.4em 0 0 0;
+}
+#company_overview_table li:nth-child(1) {
+	padding: 0;
+}
+
+#mfjlogo {
+	max-width: 250px;
+}
+
+@media screen and (min-width : 550px) {
+
+#company_overview_table th {
+	font-size: 125%;
+	width: 8em;
+}
+
+
+}
+
+
+
+
+
+
+
+/* contact
+----------------------------------------------------------------------------------------------*/
+
+
+#fc2_block {
+
+}
+#fc2_block {
+margin-top: 100px;
+}
+#fc2_block .explanation {
+text-align: center;
+	line-height: 1.7;
+	padding: 0 10px;
+}
+
+
+.contact form input[type="submit"] {
+-webkit-appearance: none;
+}
+
+
+.contact form p.transmitBtn, .contact .returnback {
+width: 280px;
+margin: 20px auto 20px auto;
+border-radius: 3px;
+}
+.contact form input.transmitBtn, .contact .returnback {
+font-weight: bold;
+font-size: 30px;
+color: #fff;
+background-color: #c60;
+background-color: rgba(32,71,78,0.5);
+text-shadow: 0px 0px 3px rgba(0,0,0,0.7);
+border: 0 solid;
+width: 280px;
+height: 70px;
+padding: 0;
+cursor:pointer;
+-webkit-appearance: none;
+-webkit-transition-duration:0.4s;
+transition-duration:0.4s;
+box-shadow:0 1px 4px rgba(0,0,0,0.15);
+}
+.contact .returnback a {
+display: block;
+color: #fff;
+line-height: 90px;
+text-align: center;
+text-shadow: 0px 0px 3px rgba(0,0,0,0.7);
+}
+.contact form input.submitBtn {
+background-color: #f00;
+}
+.contact form input.transmitBtn:hover, .contact .returnback:hover {
+color: #fff;
+background-color: rgba(32,71,78,0.6);
+box-shadow:0 1px 9px 3px rgba(0,0,0,0.35);
+}
+
+.contact .returnback a:hover {
+background: none;
+}
+#fc2_block dd.hidden {
+display: none;	
+}
+
+
+.contact form dt {
+position: relative;
+}
+.contact .asterisk {
+font-weight: bold;
+color:#fff;
+line-height: 1.7;
+padding: 0 0.5em;
+border-radius: 0.5em;
+background-color: #d00;
+right: 0.3em;
+}
+.contact .asterisk {
+position: relative;
+}
+.contact form .asterisk {
+position: absolute;
+}
+
+
+@media screen and (max-width:767px){
+
+.contact form {
+padding-top: 42px;
+line-height: 1.4;
+}
+.contact form .wrap {
+width: 100%;
+padding: 1em;
+}
+.contact form .explanation {
+padding-bottom: 1em;
+}
+.contact form dl, .contact form dt, .contact form dd {
+margin : 0;
+padding : 0;
+}
+ 
+.contact form dl {
+border-bottom: 1px solid #777;
+width: 100%;
+}
+ 
+.contact form dt {
+width : 100%;
+padding: 0.6em 0 0.6em 0.5em;
+font-weight: bold;
+text-align: left;
+vertical-align: middle;
+border-top: 1px solid #777;
+background: #fafafa;
+background: #888;
+color: #fff;
+} 
+.contact form dd {
+padding: 1em 0.6em;
+text-align: left;
+vertical-align: middle;
+border-top: 1px solid #777;
+background: #fff;
+width: 100%;
+}
+.contact form input {
+font-size: 130%;
+line-height: 1.7;
+padding-left: 0.5em;
+margin: 0.2em 0;
+width: 100%;
+border: 1px solid #bbb;
+border-radius: 3px;
+margin: 0.2em 0 0.5em 0;
+}
+
+.contact form input[type="checkbox"] {
+width: 1em;
+height: 1em;
+margin-right: 5px;
+}
+.contact form dd.request label:hover {
+cursor:pointer;
+background: #ddd;
+}
+.contact form dd.name input:nth-of-type(1), #contact_block dd.kana input:nth-of-type(1) {
+margin: 0.2em 0 1em 0;
+}
+.contact form dd.name input:nth-of-type(2), #contact_block dd.kana input:nth-of-type(2) {
+margin: 0.2em 0 0.5em 0;
+}
+
+.contact form dd.inquiry textarea {
+width: 100%;
+height: 13em;
+border-radius: 3px;
+margin: 0.2em 0;
+border: 1px solid #bbb;
+}
+
+.contact form dd.telkakunin label:hover {
+cursor:pointer;
+background: #ddd;
+}
+.contact form dl + dl {
+border-top: 0px solid #777;
+}
+
+.contact form input[type="radio"] {
+width: 1em;
+height: 1em;
+}
+.contact form dd label {
+display: block;
+line-height: 1.4em;
+padding-left: 0.5em;
+}
+.contact form dd label+label {
+margin-top: 0.5em;
+}
+.contact form .invisible{
+display: none;
+}
+.contact form .asterisk {
+top: 0.45em;
+}
+
+}
+
+
+
+/* 767px以上の記述
+------------------*/
+@media screen and (min-width:767px){
+.contact form {
+padding-top: 30px;
+line-height: 1.6;
+}
+.contact form .wrap {
+width: 800px;
+}
+.contact form .explanation {
+padding: 10px;
+}
+.contact form dl {
+background: #888;
+display: table;
+width: 680px;
+margin: 20px auto 0 auto;
+margin: 0 auto;
+border-top: 1px solid #000;
+border-bottom: 1px solid #000;
+}
+.contact form dt{
+color: #fff;
+padding: 20px 0px 20px 10px;
+font-weight: bold;
+vertical-align: middle;
+line-height: 30px;
+width: 178px;
+height: 70px;
+height: 100%;
+/* 左寄せ */
+float : left;
+/* float解除 */
+clear : both;
+}
+ 
+.contact form dd{
+padding: 20px 0px 20px 20px;
+text-align: left;
+vertical-align: middle;
+background: #fff;
+line-height: 1.6;
+line-height: 30px;
+width : 610px;
+/* dtの幅分の設定 */
+margin-left : 178px;
+}
+.contact form input {
+font-size: 130%;
+line-height: 26px;
+padding-left: 10px;
+width: 560px;
+border: 1px solid #bbb;
+border-radius: 3px;
+}
+
+.contact form input[type="checkbox"] {
+width: 1em;
+height: 1em;
+margin-right: 5px;
+}
+.contact form dd.request label:hover {
+cursor:pointer;
+background: #ddd;
+}
+.contact form dt.request, .contact form dd.request {
+height: 100px;
+}
+.contact form .request label {
+float: left;
+display: block;
+width: 33%;
+}
+
+.contact form dd.name input, .contact form dd.kana input {
+width: 209px;
+}
+.contact form dd.name span:nth-of-type(1) {
+padding: 0 20px 0 0;
+}
+.contact form dd.name span:nth-of-type(2) {
+padding: 0 20px 0 20px;
+}
+.contact form dd.kana span:nth-of-type(1) {
+padding: 0 5px 0 0;
+}
+.contact form dd.kana span:nth-of-type(2) {
+padding: 0 5px 0 20px;
+}
+
+.contact form dd.tel input {
+width: 260px;
+}
+.contact form dt.inquiry, .contact form dd.inquiry {
+height: 200px;
+}
+.contact form dd.inquiry textarea {
+width: 561px;
+height: 158px;
+border-radius: 3px;
+border: 1px solid #bbb;
+}
+
+.contact form dl + dl {
+border-top: 0px solid #000;
+}
+
+.contact form input[type="radio"] {
+width: 1em;
+height: 1em;
+margin-right: 5px;
+}
+.contact form .telkakunin label {
+float: left;
+display: block;
+width: 33%;
+}
+
+.contact form dd.application label+label {
+margin-left: 3em;
+}
+.contact form dd.newwhen label+label {
+margin-left: 2em;
+}
+.contact form dd.newwhen {
+letter-spacing: 0px;
+}
+.contact form .newtrigger {
+height: 290px;
+}
+.contact form dd.newtrigger label {
+display: block;
+}
+.contact form .invisible{
+display: none;
+}
+.contact form dd.tel .asterisk {
+font-size: 90%;
+}
+
+}
+
+
+
+
+
+
+
+/* get
+----------------------------------------------------------------------------------------------*/
+.kouzaaddress {
+padding: 1em;
+background: #eff;
+border-left: 1px solid #f99;
+}
+
+
+
+
+
+/* ホワイトペーパー公開予定
+----------------------------------------------------------------------------------------------*/
+
+#langChange {
+text-align: right;
+}
+#langChangeBtn {
+border: 1px solid #bbb;
+}
+
+
+
+
+
+
+
+
+
+

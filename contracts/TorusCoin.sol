@@ -218,7 +218,7 @@ contract StandardToken is ERC20, BasicToken {
 
 
 /**
- * MoldCoin pre-sell contract.
+ * TorusCoin pre-sell contract.
  *
  */
 contract TorusCoin is StandardToken {
@@ -246,7 +246,7 @@ contract TorusCoin is StandardToken {
     address public admin;
 
     uint256 public coinAllocation = 630 * 10**8 * 10**decimals; //63000M tokens supply for pre-sell
-    uint256 public angelAllocation = 70 * 10**8 * 10**decimals; // 700M of token supply allocated angel investor
+    uint256 public angelAllocation = 70 * 10**8 * 10**decimals; // 7000M of token supply allocated angel investor
     uint256 public founderAllocation = 300 * 10**8 * 10**decimals; //30000M of token supply allocated for the team allocation
 
     bool public founderAllocated = false; //this will change to true when the founder fund is allocated

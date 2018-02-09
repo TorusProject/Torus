@@ -1,7 +1,7 @@
 
  # Torus Ethereum SmartContract
  
- This is the code for the Ethereum SmartContract responsible for [Torus](https://torus.energy/).
+ This is the code for the Ethereum SmartContract responsible for [TorusCoin](https://torus.energy/).
  
  
  ## Tests

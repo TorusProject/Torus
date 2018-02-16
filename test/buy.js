@@ -213,7 +213,7 @@ contract('Test Buy TorusCoin', function (accounts) {
     });
 
     it("buy on second stage", async function () {
-        let dateTime = Math.floor(Date.now() / 1000 - (4+3)*24*60*60);
+        let dateTime = Math.floor(Date.now() / 1000 - (4+1)*24*60*60);
         let coin = null;
         let owner = accounts[0];
         let sendTo = accounts[2];
@@ -240,7 +240,7 @@ contract('Test Buy TorusCoin', function (accounts) {
     });
 
     it("buy on third stage", async function () {
-        let dateTime = Math.floor(Date.now() / 1000 - (4+3+7+4)*24*60*60);
+        let dateTime = Math.floor(Date.now() / 1000 - (4+1+5+1)*24*60*60);
         let coin = null;
         let owner = accounts[0];
         let sendTo = accounts[3];

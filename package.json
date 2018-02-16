@@ -1,15 +1,11 @@
 {
   "name": "TRC",
   "version": "0.1.0",
-  "description": "Torus Ploject",
-  "author": "MoldCoin team",
+  "description": "Torus Project",
+  "author": "TorusCoin team",
   "scripts": {
     "test": "./node_modules/.bin/gulp test",
     "testrpc": "./node_modules/.bin/gulp testrpc"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/moldcoin/TRC.git"
   },
   "dependencies": {},
   "devDependencies": {
@@ -57,7 +53,7 @@
     "webpack-hot-middleware": "^2.21.0"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=9"
   },
   "license": "MIT"
 }

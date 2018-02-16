@@ -59,7 +59,7 @@ contract('Buy TorusCoin 2', function (accounts) {
 
     it('buy token on second stop stage', async function () {
         let now = new Date()
-        let dateTime = Math.floor(Date.now() / 1000) - (4+3+7)*24*60*60 -1
+        let dateTime = Math.floor(Date.now() / 1000) - (4+1+5)*24*60*60 -1
         let coin = null
         let owner = accounts[0]
         let sendTo = accounts[1];
@@ -79,7 +79,7 @@ contract('Buy TorusCoin 2', function (accounts) {
 
     it('buy token after ico finished', async function () {
         let now = new Date()
-        let dateTime = Math.floor(Date.now() / 1000) - (4+3+7+4+13)*24*60*60 -1
+        let dateTime = Math.floor(Date.now() / 1000) - (4+1+5+1+5)*24*60*60 -1
         let coin = null
         let owner = accounts[0]
         let sendTo = accounts[1];

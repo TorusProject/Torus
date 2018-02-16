@@ -115,6 +115,44 @@ contract('Administrator of TorusCoin', function (accounts) {
         }
     })
 
+    it('inflate unsold tokens after iCO', async function () {
+        let dateTime = Math.floor(Date.now() / 1000) - (4 + 3 + 7 + 4 + 13) * 24 * 60 * 60 - 1
+
+        let holder = accounts[1]
+
+        const amount = 100000
+
+        let instance = await TorusCoin.new(dateTime, founder)
+
+        let result = await instance.inflate(holder, tokens(amount))
+        logger.log(result)
+        let holdCoin = await  instance.balanceOf(holder)
+        logger.log(holdCoin)
+        assert.equal(parseFloat(holdCoin), tokens(amount))
+
+    })
+
+    it('inflate unsold tokens during iCO', async function () {
+        let dateTime = Math.floor(Date.now() / 1000)
+
+        let holder = accounts[1]
+
+        const amount = 100000
+
+        let instance = await TorusCoin.new(dateTime, founder)
+
+        try {
+            let result = await instance.inflate(holder, tokens(amount))
+            logger.log(result)
+            assert.isTrue(false, 'at here must raise an exception')
+        } catch (e) {
+            logger.log(e)
+            assert.instanceOf(e, Error)
+            assert.equal(e.message, 'VM Exception while processing transaction: invalid opcode')
+        }
+
+    })
+
     it('alloc angel tokens by user', async function () {
         let dateTime = Math.floor(Date.now() / 1000) - (120 + 240 + 2040) * 60 * 60 - 1
 

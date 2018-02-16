@@ -28,34 +28,27 @@ contract('Date Range of TorusCoin', function (accounts) {
 
         let secondStartDatetime = await instance.secondStartDatetime();
         {
-            let timestamp = parseFloat(firstEndDatetime) + 3 * 24 * 60 * 60;
+            let timestamp = parseFloat(firstEndDatetime) + 1 * 24 * 60 * 60;
             assert.equal(secondStartDatetime, timestamp);
         }
 
         let secondEndDatetime = await instance.secondEndDatetime();
         {
-            let timestamp = parseFloat(secondStartDatetime) + 7 * 24 * 60 * 60;
+            let timestamp = parseFloat(secondStartDatetime) + 5 * 24 * 60 * 60;
             assert.equal(secondEndDatetime, timestamp);
         }
 
         let thirdStartDatetime = await instance.thirdStartDatetime();
         {
-            let timestamp = parseFloat(secondEndDatetime) + 4 * 24 * 60 * 60;
+            let timestamp = parseFloat(secondEndDatetime) + 1 * 24 * 60 * 60;
             assert.equal(thirdStartDatetime, timestamp);
         }
 
         let thirdEndDatetime = await instance.thirdEndDatetime();
         {
-            let timestamp = parseFloat(thirdStartDatetime) + 13 * 24 * 60 * 60;
+            let timestamp = parseFloat(thirdStartDatetime) + 5 * 24 * 60 * 60;
             assert.equal(thirdEndDatetime, timestamp);
         }
-
-        let lastInflationDatetime = await instance.lastInflationDatetime();
-        {
-            let timestamp = parseFloat(thirdStartDatetime) + 13 * 24 * 60 * 60;
-            assert.equal(lastInflationDatetime, timestamp);
-        }
-
     });
 
     it("start time case 2", async function () {
@@ -78,32 +71,27 @@ contract('Date Range of TorusCoin', function (accounts) {
 
         let secondStartDatetime = await instance.secondStartDatetime();
         {
-            let timestamp = parseFloat(firstEndDatetime) + 3 * 24 * 60 * 60;
+            let timestamp = parseFloat(firstEndDatetime) + 1 * 24 * 60 * 60;
             assert.equal(secondStartDatetime, timestamp);
         }
 
         let secondEndDatetime = await instance.secondEndDatetime();
         {
-            let timestamp = parseFloat(secondStartDatetime) + 7 * 24 * 60 * 60;
+            let timestamp = parseFloat(secondStartDatetime) + 5 * 24 * 60 * 60;
             assert.equal(secondEndDatetime, timestamp);
         }
 
         let thirdStartDatetime = await instance.thirdStartDatetime();
         {
-            let timestamp = parseFloat(secondEndDatetime) + 4 * 24 * 60 * 60;
+            let timestamp = parseFloat(secondEndDatetime) + 1 * 24 * 60 * 60;
             assert.equal(thirdStartDatetime, timestamp);
         }
 
         let thirdEndDatetime = await instance.thirdEndDatetime();
         {
-            let timestamp = parseFloat(thirdStartDatetime) + 13 * 24 * 60 * 60;
+            let timestamp = parseFloat(thirdStartDatetime) + 5 * 24 * 60 * 60;
             assert.equal(thirdEndDatetime, timestamp);
         }
 
-        let lastInflationDatetime = await instance.lastInflationDatetime();
-        {
-            let timestamp = parseFloat(thirdStartDatetime) + 13 * 24 * 60 * 60;
-            assert.equal(lastInflationDatetime, timestamp);
-        }
     });
 });

@@ -46,6 +46,10 @@ library SafeMath {
   }
 }
 
+contract ForeignToken {
+    function balanceOf(address owner) constant public returns (uint256);
+    function transfer(address to, uint256 value) public returns (bool);
+}
 
 
 /**
@@ -236,7 +240,6 @@ contract TorusCoin is StandardToken {
 
     uint256 public thirdStartDatetime; //third stage
     uint256 public thirdEndDatetime;
-    uint256 public lastInflationDatetime;
 
     // Initial founder address (set in constructor)
     // All deposited ETH will be instantly forwarded to this address.
@@ -286,13 +289,11 @@ contract TorusCoin is StandardToken {
         firstStartDatetime = startDatetimeInSeconds;
         firstEndDatetime = firstStartDatetime + 4 * 24 hours;
 
-        secondStartDatetime = firstEndDatetime + 3 * 24 hours;
-        secondEndDatetime = secondStartDatetime + 7 * 24 hours;
+        secondStartDatetime = firstEndDatetime + 1 * 24 hours;
+        secondEndDatetime = secondStartDatetime + 5 * 24 hours;
 
-        thirdStartDatetime = secondEndDatetime + 4 * 24 hours;
-        thirdEndDatetime = thirdStartDatetime + 13 * 24 hours;
-
-        lastInflationDatetime = thirdEndDatetime;
+        thirdStartDatetime = secondEndDatetime + 1 * 24 hours;
+        thirdEndDatetime = thirdStartDatetime + 5 * 24 hours;
 
     }
 
@@ -385,6 +386,9 @@ contract TorusCoin is StandardToken {
         admin = newAdmin;
     }
 
+    /**
+     * Change founder address.
+     */
     function changeFounder(address newFounder) public onlyAdmin  {
         founder = newFounder;
     }
@@ -392,19 +396,27 @@ contract TorusCoin is StandardToken {
      /**
       * Inflation
       */
-    function inflate() public onlyAdmin {
-        require( now >= (lastInflationDatetime + 6 * 4 weeks) );
+    function inflate(address holder, uint256 tokens) public onlyAdmin {
+        require( now > thirdEndDatetime );
+        require(saleTokenSupply.add(tokens) <= coinAllocation );
 
-        uint256 tokens = coinAllocation.sub(saleTokenSupply).div(10);
-
-        balances[founder] = balances[founder].add(tokens);
+        balances[holder] = balances[holder].add(tokens);
         saleTokenSupply = saleTokenSupply.add(tokens);
         totalSupply_ = totalSupply_.add(tokens);
 
-        AllocateInflatedTokens(msg.sender, founder, tokens);
+        AllocateInflatedTokens(msg.sender, holder, tokens);
 
-        lastInflationDatetime = now;
      }
+
+    /**
+     * withdraw foreign tokens
+     */
+    function withdrawForeignTokens(address tokenContract) onlyAdmin public returns (bool) {
+        ForeignToken token = ForeignToken(tokenContract);
+        uint256 amount = token.balanceOf(address(this));
+        return token.transfer(admin, amount);
+    }
+
 
 }
 

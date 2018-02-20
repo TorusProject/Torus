@@ -12,86 +12,40 @@ contract('Date Range of TorusCoin', function (accounts) {
         let wantDate = new Date('2018-01-01T00:00:00Z')
 
         let instance = await TorusCoin.deployed();
-        let firstStartDatetime = await instance.firstStartDatetime();
-        logger.log(firstStartDatetime)
+        let startDatetime = await instance.startDatetime();
+        logger.log(startDatetime)
         {
             let timestamp = Math.floor(wantDate.valueOf() / 1000);
             logger.log(timestamp)
-            assert.equal(firstStartDatetime, timestamp);
+            assert.equal(startDatetime, timestamp);
         }
 
-        let firstEndDatetime = await instance.firstEndDatetime();
+        let endDatetime = await instance.endDatetime();
         {
-            let timestamp = parseFloat(firstStartDatetime) + 4 * 24 * 60 * 60;
-            assert.equal(firstEndDatetime, timestamp);
+            let timestamp = parseFloat(startDatetime) + 16 * 24 * 60 * 60;
+            assert.equal(endDatetime, timestamp);
         }
 
-        let secondStartDatetime = await instance.secondStartDatetime();
-        {
-            let timestamp = parseFloat(firstEndDatetime) + 1 * 24 * 60 * 60;
-            assert.equal(secondStartDatetime, timestamp);
-        }
-
-        let secondEndDatetime = await instance.secondEndDatetime();
-        {
-            let timestamp = parseFloat(secondStartDatetime) + 5 * 24 * 60 * 60;
-            assert.equal(secondEndDatetime, timestamp);
-        }
-
-        let thirdStartDatetime = await instance.thirdStartDatetime();
-        {
-            let timestamp = parseFloat(secondEndDatetime) + 1 * 24 * 60 * 60;
-            assert.equal(thirdStartDatetime, timestamp);
-        }
-
-        let thirdEndDatetime = await instance.thirdEndDatetime();
-        {
-            let timestamp = parseFloat(thirdStartDatetime) + 5 * 24 * 60 * 60;
-            assert.equal(thirdEndDatetime, timestamp);
-        }
     });
 
     it("start time case 2", async function () {
         let wantDate = Math.floor(Date.now() / 1000);
 
         let instance = await TorusCoin.new(wantDate, founder);
-        let firstStartDatetime = await instance.firstStartDatetime();
-        logger.log(wantDate, firstStartDatetime)
+        let startDatetime = await instance.startDatetime();
+        logger.log(startDatetime)
         {
-            let timestamp = wantDate;
+            let timestamp = wantDate.valueOf();
             logger.log(timestamp)
-            assert.equal(firstStartDatetime, timestamp);
+            assert.equal(startDatetime, timestamp);
         }
 
-        let firstEndDatetime = await instance.firstEndDatetime();
+        let endDatetime = await instance.endDatetime();
         {
-            let timestamp = parseFloat(firstStartDatetime) + 4 * 24 * 60 * 60;
-            assert.equal(firstEndDatetime, timestamp);
+            let timestamp = parseFloat(startDatetime) + 16 * 24 * 60 * 60;
+            assert.equal(endDatetime, timestamp);
         }
 
-        let secondStartDatetime = await instance.secondStartDatetime();
-        {
-            let timestamp = parseFloat(firstEndDatetime) + 1 * 24 * 60 * 60;
-            assert.equal(secondStartDatetime, timestamp);
-        }
-
-        let secondEndDatetime = await instance.secondEndDatetime();
-        {
-            let timestamp = parseFloat(secondStartDatetime) + 5 * 24 * 60 * 60;
-            assert.equal(secondEndDatetime, timestamp);
-        }
-
-        let thirdStartDatetime = await instance.thirdStartDatetime();
-        {
-            let timestamp = parseFloat(secondEndDatetime) + 1 * 24 * 60 * 60;
-            assert.equal(thirdStartDatetime, timestamp);
-        }
-
-        let thirdEndDatetime = await instance.thirdEndDatetime();
-        {
-            let timestamp = parseFloat(thirdStartDatetime) + 5 * 24 * 60 * 60;
-            assert.equal(thirdEndDatetime, timestamp);
-        }
 
     });
 });

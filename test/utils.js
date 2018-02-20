@@ -28,14 +28,12 @@ function wait(ms) {
 const founderAmount = 300 * 10**4 * 10**4
 const angelStageRate = 40 * 10**4
 const firstStageRate = 35 * 10**4
-const secondStageRate = 30 * 10**4
-const thirdStageRate = 25 * 10**4
 
 
 module.exports = {
     logger, toWei, tokens, wait,
     founderAmount,
-    angelStageRate, firstStageRate, secondStageRate, thirdStageRate
+    angelStageRate, firstStageRate
 };
 
 //console.log(global);

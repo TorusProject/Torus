@@ -212,59 +212,6 @@ contract('Test Buy TorusCoin', function (accounts) {
         }
     });
 
-    it("buy on second stage", async function () {
-        let dateTime = Math.floor(Date.now() / 1000 - (4+1)*24*60*60);
-        let coin = null;
-        let owner = accounts[0];
-        let sendTo = accounts[2];
-
-        logger.log(owner);
-
-        let instance = await TorusCoin.new(dateTime, founder);
-
-        await utils.wait(1000)
-
-        {
-            let result = await instance.buy(sendTo, {value: toWei(1)});
-            logger.log(result);
-            let log = result.logs[0].args;
-            assert.equal(log.sender, owner);
-            assert.equal(log.recipient, sendTo);
-            assert.equal(log.tokens, tokens(utils.secondStageRate * 1));
-        }
-        {
-            let result = await instance.balanceOf(sendTo);
-            logger.log(result);
-            assert.equal(result, tokens(utils.secondStageRate * 1));
-        }
-    });
-
-    it("buy on third stage", async function () {
-        let dateTime = Math.floor(Date.now() / 1000 - (4+1+5+1)*24*60*60);
-        let coin = null;
-        let owner = accounts[0];
-        let sendTo = accounts[3];
-
-        logger.log(owner);
-
-        let instance = await TorusCoin.new(dateTime, founder);
-
-        await utils.wait(1000)
-
-        {
-            let result = await instance.buy(sendTo, {value: toWei(1)});
-            logger.log(result);
-            let log = result.logs[0].args;
-            assert.equal(log.sender, owner);
-            assert.equal(log.recipient, sendTo);
-            assert.equal(log.tokens, tokens(utils.thirdStageRate * 1));
-        }
-        {
-            let result = await instance.balanceOf(sendTo);
-            logger.log(result);
-            assert.equal(result, tokens(utils.thirdStageRate * 1));
-        }
-    });
 
 
 });

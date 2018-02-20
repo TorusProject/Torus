@@ -232,14 +232,8 @@ contract TorusCoin is StandardToken {
     string public symbol = "TRC";
     uint256 public decimals = 18;
 
-    uint256 public firstStartDatetime; //first stage
-    uint256 public firstEndDatetime;
-
-    uint256 public secondStartDatetime; //second stage
-    uint256 public secondEndDatetime;
-
-    uint256 public thirdStartDatetime; //third stage
-    uint256 public thirdEndDatetime;
+    uint256 public startDatetime;
+    uint256 public endDatetime;
 
     // Initial founder address (set in constructor)
     // All deposited ETH will be instantly forwarded to this address.
@@ -273,7 +267,7 @@ contract TorusCoin is StandardToken {
     }
 
     modifier duringCrowdSale {
-        require(block.timestamp >= firstStartDatetime && block.timestamp <= thirdEndDatetime);
+        require(block.timestamp >= startDatetime && block.timestamp <= endDatetime);
         _;
     }
 
@@ -286,25 +280,8 @@ contract TorusCoin is StandardToken {
         admin = msg.sender;
         founder = founderWallet;
 
-        firstStartDatetime = startDatetimeInSeconds;
-        firstEndDatetime = firstStartDatetime + 4 * 24 hours;
-
-        secondStartDatetime = firstEndDatetime + 1 * 24 hours;
-        secondEndDatetime = secondStartDatetime + 5 * 24 hours;
-
-        thirdStartDatetime = secondEndDatetime + 1 * 24 hours;
-        thirdEndDatetime = thirdStartDatetime + 5 * 24 hours;
-
-    }
-
-    /**
-     * Price for crowdsale by time
-     */
-    function price(uint256 timeInSeconds) public constant returns(uint256) {
-        if (timeInSeconds >= firstStartDatetime && timeInSeconds <= firstEndDatetime) return 35*10**4; //first stage
-        if (timeInSeconds >= secondStartDatetime && timeInSeconds <= secondEndDatetime) return 30*10**4; //second stage
-        if (timeInSeconds >= thirdStartDatetime && timeInSeconds <= thirdEndDatetime) return 25*10**4; //third stage
-        return 0;
+        startDatetime = startDatetimeInSeconds;
+        endDatetime = startDatetime + 16 * 1 days;
     }
 
     /**
@@ -323,7 +300,7 @@ contract TorusCoin is StandardToken {
         require(!halted);
         require(msg.value >= 0.01 ether);
 
-        uint256 tokens = msg.value.mul(price(block.timestamp));
+        uint256 tokens = msg.value.mul(35e4);
 
         require(tokens > 0);
 
@@ -344,7 +321,7 @@ contract TorusCoin is StandardToken {
      * Set up founder address token balance.
      */
     function allocateFounderTokens() public onlyAdmin {
-        require( now > thirdEndDatetime );
+        require( now > endDatetime );
         require(!founderAllocated);
 
         balances[founder] = balances[founder].add(founderAllocation);
@@ -397,7 +374,7 @@ contract TorusCoin is StandardToken {
       * Inflation
       */
     function inflate(address holder, uint256 tokens) public onlyAdmin {
-        require( now > thirdEndDatetime );
+        require( now > endDatetime );
         require(saleTokenSupply.add(tokens) <= coinAllocation );
 
         balances[holder] = balances[holder].add(tokens);

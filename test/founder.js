@@ -77,44 +77,6 @@ contract('Administrator of TorusCoin', function (accounts) {
 
     })
 
-    it('alloc angel tokens ', async function () {
-        let dateTime = Math.floor(Date.now() / 1000)
-
-        let angel1 = accounts[1]
-        let angel2 = accounts[2]
-        let angel3 = accounts[3]
-
-        const amount = 100000
-
-        let instance = await TorusCoin.new(dateTime, founder)
-        {
-
-            let result = await instance.allocateAngelTokens(angel1, tokens(amount))
-            logger.log(result)
-            let holdCoin = await  instance.balanceOf(angel1)
-            logger.log(holdCoin)
-            assert.equal(parseFloat(holdCoin), tokens(amount))
-        }
-
-        {
-
-            let result = await instance.allocateAngelTokens(angel2, tokens(amount))
-            logger.log(result)
-            let holdCoin = await  instance.balanceOf(angel2)
-            logger.log(holdCoin)
-            assert.equal(parseFloat(holdCoin), tokens(amount))
-        }
-
-        {
-
-            let result = await instance.allocateAngelTokens(angel2, tokens(amount))
-            logger.log(result)
-            let holdCoin = await  instance.balanceOf(angel2)
-            logger.log(holdCoin)
-            assert.equal(parseFloat(holdCoin), tokens(amount * 2))
-        }
-    })
-
     it('inflate unsold tokens after iCO', async function () {
         let dateTime = Math.floor(Date.now() / 1000) - (4 + 3 + 7 + 4 + 13) * 24 * 60 * 60 - 1
 
@@ -144,21 +106,6 @@ contract('Administrator of TorusCoin', function (accounts) {
         try {
             let result = await instance.inflate(holder, tokens(amount))
             logger.log(result)
-            assert.isTrue(false, 'at here must raise an exception')
-        } catch (e) {
-            logger.log(e)
-            assert.instanceOf(e, Error)
-            assert.equal(e.message, 'VM Exception while processing transaction: invalid opcode')
-        }
-
-    })
-
-    it('alloc angel tokens by user', async function () {
-        let dateTime = Math.floor(Date.now() / 1000) - (120 + 240 + 2040) * 60 * 60 - 1
-
-        try {
-            let instance = await TorusCoin.new(dateTime, founder)
-            let result = await instance.allocateAngelTokens(user1, tokens(1000), {from: user1})
             assert.isTrue(false, 'at here must raise an exception')
         } catch (e) {
             logger.log(e)

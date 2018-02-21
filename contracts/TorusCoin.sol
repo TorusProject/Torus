@@ -242,8 +242,7 @@ contract TorusCoin is StandardToken {
     // administrator address
     address public admin;
 
-    uint256 public coinAllocation = 630 * 10**8 * 10**decimals; //63000M tokens supply for pre-sell
-    uint256 public angelAllocation = 70 * 10**8 * 10**decimals; // 7000M of token supply allocated angel investor
+    uint256 public coinAllocation = 700 * 10**8 * 10**decimals; //70000M tokens supply for pre-sell
     uint256 public founderAllocation = 300 * 10**8 * 10**decimals; //30000M of token supply allocated for the team allocation
 
     bool public founderAllocated = false; //this will change to true when the founder fund is allocated
@@ -251,14 +250,10 @@ contract TorusCoin is StandardToken {
     uint256 public saleTokenSupply = 0; //this will keep track of the token supply created during the pre-sell
     uint256 public salesVolume = 0; //this will keep track of the Ether raised during the pre-sell
 
-    uint256 public angelTokenSupply = 0; //this will keep track of the token angel supply
-
-
     bool public halted = false; //the admin address can set this to true to halt the pre-sell due to emergency
 
     event Buy(address sender, address recipient, uint256 eth, uint256 tokens);
     event AllocateFounderTokens(address sender, address founder, uint256 tokens);
-    event AllocateAngelTokens(address sender, address to, uint256 tokens);
     event AllocateInflatedTokens(address sender, address holder, uint256 tokens);
 
     modifier onlyAdmin {
@@ -329,20 +324,6 @@ contract TorusCoin is StandardToken {
         founderAllocated = true;
 
         AllocateFounderTokens(msg.sender, founder, founderAllocation);
-    }
-
-    /**
-     * Set up angel address token balance.
-     */
-    function allocateAngelTokens(address angel, uint256 tokens) public onlyAdmin {
-
-        require(angelTokenSupply.add(tokens) <= angelAllocation );
-
-        balances[angel] = balances[angel].add(tokens);
-        angelTokenSupply = angelTokenSupply.add(tokens);
-        totalSupply_ = totalSupply_.add(tokens);
-
-        AllocateAngelTokens(msg.sender, angel, tokens);
     }
 
     /**

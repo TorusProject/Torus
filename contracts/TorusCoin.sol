@@ -229,7 +229,7 @@ contract TorusCoin is StandardToken {
     using SafeMath for uint256;
 
     string public name = "Torus";
-    string public symbol = "TRC";
+    string public symbol = "TORUS";
     uint256 public decimals = 18;
 
     uint256 public startDatetime;

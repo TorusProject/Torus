@@ -39,7 +39,7 @@ contract('Buy TorusCoin 2', function (accounts) {
 
     it('buy token after ico finished', async function () {
         let now = new Date()
-        let dateTime = Math.floor(Date.now() / 1000) - (30)*24*60*60 -1
+        let dateTime = Math.floor(Date.now() / 1000) - (31)*24*60*60 -1
         let coin = null
         let owner = accounts[0]
         let sendTo = accounts[1];

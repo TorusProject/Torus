@@ -17,11 +17,11 @@ module.exports = {
       }
     }),
     // minify with dead-code elimination
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
-    }),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   compress: {
+    //     warnings: false
+    //   }
+    // }),
     // optimize module ids by occurrence count
     new webpack.optimize.OccurrenceOrderPlugin()
   ],
@@ -40,10 +40,6 @@ module.exports = {
       {
         test: /\.css$/,
         loader: 'style-loader!css-loader!sass-loader'
-      },
-      {
-        test: /\.json$/,
-        loader: 'json-loader'
       }
     ]
   },

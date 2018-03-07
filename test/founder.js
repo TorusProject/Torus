@@ -22,7 +22,7 @@ contract('Administrator of TorusCoin', function (accounts) {
         } catch (e) {
             logger.log(e)
             assert.instanceOf(e, Error)
-            assert.equal(e.message, 'VM Exception while processing transaction: invalid opcode')
+            assert.equal(e.message, 'VM Exception while processing transaction: revert')
         }
     })
 
@@ -55,7 +55,7 @@ contract('Administrator of TorusCoin', function (accounts) {
         } catch (e) {
             logger.log(e)
             assert.instanceOf(e, Error)
-            assert.equal(e.message, 'VM Exception while processing transaction: invalid opcode')
+            assert.equal(e.message, 'VM Exception while processing transaction: revert')
         }
 
     })
@@ -72,7 +72,7 @@ contract('Administrator of TorusCoin', function (accounts) {
         } catch (e) {
             logger.log(e)
             assert.instanceOf(e, Error)
-            assert.equal(e.message, 'VM Exception while processing transaction: invalid opcode')
+            assert.equal(e.message, 'VM Exception while processing transaction: revert')
         }
 
     })
@@ -110,7 +110,7 @@ contract('Administrator of TorusCoin', function (accounts) {
         } catch (e) {
             logger.log(e)
             assert.instanceOf(e, Error)
-            assert.equal(e.message, 'VM Exception while processing transaction: invalid opcode')
+            assert.equal(e.message, 'VM Exception while processing transaction: revert')
         }
 
     })
@@ -133,7 +133,7 @@ contract('Administrator of TorusCoin', function (accounts) {
         } catch (e) {
             logger.log(e)
             assert.instanceOf(e, Error)
-            assert.equal(e.message, 'VM Exception while processing transaction: invalid opcode')
+            assert.equal(e.message, 'VM Exception while processing transaction: revert')
         }
 
         {

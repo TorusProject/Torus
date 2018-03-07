@@ -262,7 +262,7 @@ contract TorusCoin is StandardToken {
     }
 
     modifier duringCrowdSale {
-        require(block.timestamp >= startDatetime && block.timestamp <= endDatetime);
+        require(block.timestamp >= startDatetime && block.timestamp < endDatetime);
         _;
     }
 
@@ -276,7 +276,7 @@ contract TorusCoin is StandardToken {
         founder = founderWallet;
 
         startDatetime = startDatetimeInSeconds;
-        endDatetime = startDatetime + 16 * 1 days;
+        endDatetime = startDatetime + 31 * 1 days;
     }
 
     /**

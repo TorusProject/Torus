@@ -32,14 +32,14 @@ contract('Buy TorusCoin 2', function (accounts) {
         } catch (e) {
             logger.log(e);
             assert.instanceOf(e, Error);
-            assert.equal(e.message, 'VM Exception while processing transaction: invalid opcode')
+            assert.equal(e.message, 'VM Exception while processing transaction: revert')
 
         }
     });
 
     it('buy token after ico finished', async function () {
         let now = new Date()
-        let dateTime = Math.floor(Date.now() / 1000) - (16)*24*60*60 -1
+        let dateTime = Math.floor(Date.now() / 1000) - (30)*24*60*60 -1
         let coin = null
         let owner = accounts[0]
         let sendTo = accounts[1];
@@ -53,7 +53,7 @@ contract('Buy TorusCoin 2', function (accounts) {
         } catch (e) {
             logger.log(e);
             assert.instanceOf(e, Error);
-            assert.equal(e.message, 'VM Exception while processing transaction: invalid opcode')
+            assert.equal(e.message, 'VM Exception while processing transaction: revert')
         }
     })
 
@@ -73,7 +73,7 @@ contract('Buy TorusCoin 2', function (accounts) {
         } catch (e) {
             logger.log(e);
             assert.instanceOf(e, Error);
-            assert.equal(e.message, 'VM Exception while processing transaction: invalid opcode')
+            assert.equal(e.message, 'VM Exception while processing transaction: revert')
         }
     })
 

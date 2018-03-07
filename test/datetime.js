@@ -9,7 +9,7 @@ contract('Date Range of TorusCoin', function (accounts) {
     let founder = accounts[1];
 
     it("start time case 1", async function () {
-        let wantDate = new Date('2018-01-01T00:00:00Z')
+        let wantDate = new Date('2018-03-16T00:00:00Z')
 
         let instance = await TorusCoin.deployed();
         let startDatetime = await instance.startDatetime();
@@ -22,8 +22,11 @@ contract('Date Range of TorusCoin', function (accounts) {
 
         let endDatetime = await instance.endDatetime();
         {
-            let timestamp = parseFloat(startDatetime) + 16 * 24 * 60 * 60;
+            let timestamp = parseFloat(startDatetime) + 31 * 24 * 60 * 60;
             assert.equal(endDatetime, timestamp);
+
+            const date = new Date(endDatetime*1000)
+            console.info(date.toISOString())
         }
 
     });
@@ -42,7 +45,7 @@ contract('Date Range of TorusCoin', function (accounts) {
 
         let endDatetime = await instance.endDatetime();
         {
-            let timestamp = parseFloat(startDatetime) + 16 * 24 * 60 * 60;
+            let timestamp = parseFloat(startDatetime) + 31 * 24 * 60 * 60;
             assert.equal(endDatetime, timestamp);
         }
 

@@ -22,7 +22,7 @@ contract('Date Range of TorusCoin', function (accounts) {
 
         let endDatetime = await instance.endDatetime();
         {
-            let timestamp = parseFloat(startDatetime) + 31 * 24 * 60 * 60;
+            let timestamp = parseFloat(startDatetime) + 16 * 24 * 60 * 60;
             assert.equal(endDatetime, timestamp);
 
             const date = new Date(endDatetime*1000)
@@ -45,7 +45,7 @@ contract('Date Range of TorusCoin', function (accounts) {
 
         let endDatetime = await instance.endDatetime();
         {
-            let timestamp = parseFloat(startDatetime) + 31 * 24 * 60 * 60;
+            let timestamp = parseFloat(startDatetime) + 16 * 24 * 60 * 60;
             assert.equal(endDatetime, timestamp);
         }
 

@@ -204,7 +204,8 @@
         data() {
             return {
                 isTestNetwork: false,
-                contractAddress: '0x1C9F0f414A3e75Ee6dA0b9f060143c9277169473',//'0xc6eba9b4816d7693eb4ec6ca7e03c27010e96da0',
+                contractAddress: '0xefc6d9D05D41134b1f44B379e319079eF2855edb',
+                // contractAddress: '0xc6eba9b4816d7693eb4ec6ca7e03c27010e96da0',
                 walletProvider: undefined,
                 infuraProvider: '',
                 accounts: [],
@@ -356,7 +357,16 @@
 
             async buyToken() {
                 let instance = this.contractInstance
-                let result = await instance.sendTransaction({value: web3.toWei(this.inputEth.toString())})
+
+                const gasPrice = await  web3.eth.getGasPrice()
+                let result = await web3.eth.sendTransaction({
+                    value: web3.utils.toWei(this.inputEth.toString()),
+                    from: this.currentAccount,
+                    to: this.contractAddress,
+                    gasPrice: gasPrice,
+                    gas: '150000'
+
+                })
                 console.log(result)
 
             },

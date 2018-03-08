@@ -276,7 +276,7 @@ contract TorusCoin is StandardToken {
         founder = founderWallet;
 
         startDatetime = startDatetimeInSeconds;
-        endDatetime = startDatetime + 31 * 1 days;
+        endDatetime = startDatetime + 16 * 1 days;
     }
 
     /**
@@ -316,7 +316,7 @@ contract TorusCoin is StandardToken {
      * Set up founder address token balance.
      */
     function allocateFounderTokens() public onlyAdmin {
-        require( now > endDatetime );
+        require( block.timestamp > endDatetime );
         require(!founderAllocated);
 
         balances[founder] = balances[founder].add(founderAllocation);
@@ -355,7 +355,7 @@ contract TorusCoin is StandardToken {
       * Inflation
       */
     function inflate(address holder, uint256 tokens) public onlyAdmin {
-        require( now > endDatetime );
+        require( block.timestamp > endDatetime );
         require(saleTokenSupply.add(tokens) <= coinAllocation );
 
         balances[holder] = balances[holder].add(tokens);
